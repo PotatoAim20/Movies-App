@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
             OnboardingScreen.routeName: (context) => OnboardingScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
           },
-          initialRoute: IntroductionScreen.routeName,
+          initialRoute: LoginScreen.routeName,
         );
       },
     );
