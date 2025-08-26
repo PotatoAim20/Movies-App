@@ -86,26 +86,31 @@ class _SignupScreenState extends State<SignupScreen> {
               },
             ),
             SizedBox(height: 18.h),
-            RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Already Have Account ? ",
-                    style: GoogleFonts.roboto(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w400,
-                      color: Colors.white,
+            GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: RichText(
+                text: TextSpan(
+                  children: [
+                    TextSpan(
+                      text: "Already Have Account ? ",
+                      style: GoogleFonts.roboto(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w400,
+                        color: Colors.white,
+                      ),
                     ),
-                  ),
-                  TextSpan(
-                    text: "Login",
-                    style: GoogleFonts.roboto(
-                      fontSize: 14.sp,
-                      fontWeight: FontWeight.w900,
-                      color: Color(0xffF6BD00),
+                    TextSpan(
+                      text: "Login",
+                      style: GoogleFonts.roboto(
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xffF6BD00),
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
             SizedBox(height: 18.h),
