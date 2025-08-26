@@ -8,11 +8,13 @@ class CustomElevatedButton extends StatelessWidget {
   final String text;
   final double fontSize;
   bool icon;
+  Function onPressed;
   CustomElevatedButton({
     super.key,
     required this.text,
     required this.fontSize,
     this.icon = false,
+    required this.onPressed,
   });
 
   @override
@@ -21,7 +23,9 @@ class CustomElevatedButton extends StatelessWidget {
       width: double.infinity,
       height: 56.h,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: () {
+          onPressed();
+        },
         style: ElevatedButton.styleFrom(
           backgroundColor: const Color(0xffF6BD00),
           shape: RoundedRectangleBorder(

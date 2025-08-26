@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app/screens/home_screen.dart';
 import 'package:movies_app/screens/registeration/forget_password_screen.dart';
 import 'package:movies_app/screens/registeration/signup_screen.dart';
 import 'package:movies_app/widgets/custom_elevated_button.dart';
@@ -35,11 +36,7 @@ class _LoginScreenState extends State<LoginScreen> {
               ),
             ),
             SizedBox(height: 69.h),
-            CustomTextFormField(
-              icon: 'assets/icons/email.png',
-              label: 'Email',
-              isPassword: false,
-            ),
+            CustomTextFormField(icon: 'assets/icons/email.png', label: 'Email'),
             SizedBox(height: 22.h),
             CustomTextFormField(
               icon: 'assets/icons/password.png',
@@ -69,7 +66,17 @@ class _LoginScreenState extends State<LoginScreen> {
               ],
             ),
             SizedBox(height: 33.h),
-            CustomElevatedButton(text: 'Login', fontSize: 20),
+            CustomElevatedButton(
+              text: 'Login',
+              fontSize: 20,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  HomeScreen.routeName,
+                  (route) => false,
+                );
+              },
+            ),
             SizedBox(height: 22.h),
             GestureDetector(
               onTap: () {
@@ -90,7 +97,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       text: "Create One",
                       style: GoogleFonts.roboto(
                         fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
+                        fontWeight: FontWeight.w900,
                         color: Color(0xffF6BD00),
                       ),
                     ),
@@ -124,6 +131,13 @@ class _LoginScreenState extends State<LoginScreen> {
               text: 'Login With Google',
               fontSize: 16,
               icon: true,
+              onPressed: () {
+                Navigator.pushNamedAndRemoveUntil(
+                  context,
+                  HomeScreen.routeName,
+                  (route) => false,
+                );
+              },
             ),
             SizedBox(height: 33.h),
             Container(

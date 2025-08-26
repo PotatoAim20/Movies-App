@@ -11,7 +11,7 @@ class CustomTextFormField extends StatefulWidget {
     super.key,
     required this.icon,
     required this.label,
-    required this.isPassword,
+    this.isPassword = false,
   });
 
   @override
