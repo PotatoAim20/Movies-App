@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/screens/home_screen.dart';
+import 'package:movies_app/screens/home_screen/home_screen.dart';
 import 'package:movies_app/screens/onboarding/introduction_screen.dart';
 import 'package:movies_app/screens/onboarding/onboarding_screen.dart';
 import 'package:movies_app/screens/registeration/forget_password_screen.dart';
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
             SignupScreen.routeName: (context) => SignupScreen(),
             ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
           },
-          initialRoute: LoginScreen.routeName,
+          initialRoute: HomeScreen.routeName,
         );
       },
     );

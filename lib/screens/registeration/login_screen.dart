@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:movies_app/screens/home_screen.dart';
+import 'package:movies_app/screens/home_screen/home_screen.dart';
 import 'package:movies_app/screens/registeration/forget_password_screen.dart';
 import 'package:movies_app/screens/registeration/signup_screen.dart';
 import 'package:movies_app/widgets/custom_elevated_button.dart';
