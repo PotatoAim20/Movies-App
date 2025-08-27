@@ -7,27 +7,31 @@ import 'package:google_fonts/google_fonts.dart';
 class CustomElevatedButton extends StatelessWidget {
   final String text;
   final double fontSize;
-  bool icon;
+  final bool icon;
   Function onPressed;
+  final bool isReverse;
+
   CustomElevatedButton({
     super.key,
     required this.text,
     required this.fontSize,
     this.icon = false,
     required this.onPressed,
+    this.isReverse = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: double.infinity,
       height: 56.h,
       child: ElevatedButton(
         onPressed: () {
           onPressed();
         },
         style: ElevatedButton.styleFrom(
-          backgroundColor: const Color(0xffF6BD00),
+          backgroundColor: isReverse == false
+              ? const Color(0xffF6BD00)
+              : const Color(0xffE82626),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(16.r),
           ),
@@ -43,10 +47,12 @@ class CustomElevatedButton extends StatelessWidget {
                 : SizedBox.shrink(),
             Text(
               text,
-              style: GoogleFonts.inter(
+              style: GoogleFonts.roboto(
                 fontSize: fontSize.sp,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xff121312),
+                color: isReverse == false
+                    ? const Color(0xff121312)
+                    : Colors.white,
               ),
             ),
           ],
