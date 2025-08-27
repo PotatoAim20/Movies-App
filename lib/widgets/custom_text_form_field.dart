@@ -19,11 +19,17 @@ class CustomTextFormField extends StatefulWidget {
 }
 
 class _CustomTextFormFieldState extends State<CustomTextFormField> {
-  bool showPassword = false;
+  late bool isPasswordHidden;
+  @override
+  void initState() {
+    isPasswordHidden = widget.isPassword;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      obscureText: showPassword == false,
+      obscureText: isPasswordHidden,
       obscuringCharacter: '*',
       style: GoogleFonts.roboto(
         fontSize: 16.sp,
@@ -35,13 +41,13 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
         suffixIcon: widget.isPassword
             ? IconButton(
                 onPressed: () {
-                  showPassword = !showPassword;
+                  isPasswordHidden = !isPasswordHidden;
                   setState(() {});
                 },
                 icon: Icon(
-                  showPassword
-                      ? Icons.visibility_rounded
-                      : Icons.visibility_off_rounded,
+                  isPasswordHidden
+                      ? Icons.visibility_off_rounded
+                      : Icons.visibility_rounded,
                 ),
                 color: Colors.white,
               )

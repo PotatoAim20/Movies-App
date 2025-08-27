@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies_app/screens/home_screen/home_screen.dart';
+import 'package:movies_app/screens/home_page/home_page.dart';
 import 'package:movies_app/screens/onboarding/introduction_screen.dart';
 import 'package:movies_app/screens/onboarding/onboarding_screen.dart';
 import 'package:movies_app/screens/registeration/forget_password_screen.dart';
@@ -24,14 +24,14 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           routes: {
-            HomeScreen.routeName: (context) => HomeScreen(),
+            HomePage.routeName: (context) => HomePage(),
             IntroductionScreen.routeName: (context) => IntroductionScreen(),
             OnboardingScreen.routeName: (context) => OnboardingScreen(),
             LoginScreen.routeName: (context) => LoginScreen(),
             SignupScreen.routeName: (context) => SignupScreen(),
             ForgetPasswordScreen.routeName: (context) => ForgetPasswordScreen(),
           },
-          initialRoute: HomeScreen.routeName,
+          initialRoute: HomePage.routeName,
         );
       },
     );
