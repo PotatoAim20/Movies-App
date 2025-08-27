@@ -23,7 +23,6 @@ class SearchTab extends StatelessWidget {
             CustomTextFormField(
               icon: 'assets/icons/search_nav.png',
               label: 'Search',
-              isPassword: false,
             ),
             // Spacer(),
             // Image.asset('assets/images/empty_img.png'),
