@@ -49,7 +49,7 @@ class CustomElevatedButton extends StatelessWidget {
               text,
               style: GoogleFonts.roboto(
                 fontSize: fontSize.sp,
-                fontWeight: FontWeight.w400,
+                fontWeight: FontWeight.w700,
                 color: isReverse == false
                     ? const Color(0xff121312)
                     : Colors.white,

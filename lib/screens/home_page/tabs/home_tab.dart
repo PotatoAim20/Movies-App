@@ -2,6 +2,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:movies_app/screens/movies_details_screen.dart';
 
 class HomeTab extends StatefulWidget {
   const HomeTab({super.key});
@@ -57,7 +58,15 @@ class _HomeTabState extends State<HomeTab> {
                       items: images.map((path) {
                         return Builder(
                           builder: (BuildContext context) {
-                            return Image.asset(path, fit: BoxFit.cover);
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  MoviesDetailsScreen.routeName,
+                                );
+                              },
+                              child: Image.asset(path, fit: BoxFit.cover),
+                            );
                           },
                         );
                       }).toList(),
@@ -121,11 +130,19 @@ class _HomeTabState extends State<HomeTab> {
                 scrollDirection: Axis.horizontal,
                 itemCount: 9,
                 itemBuilder: (context, index) {
-                  return Padding(
-                    padding: EdgeInsets.only(right: 16.w),
-                    child: Image.asset(
-                      'assets/images/test2.png',
-                      fit: BoxFit.cover,
+                  return GestureDetector(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        MoviesDetailsScreen.routeName,
+                      );
+                    },
+                    child: Padding(
+                      padding: EdgeInsets.only(right: 16.w),
+                      child: Image.asset(
+                        'assets/images/test2.png',
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   );
                 },
