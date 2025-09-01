@@ -88,7 +88,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Container(
-                  height: 330.h,
+                  height: 350.h,
                   width: double.infinity,
                   decoration: BoxDecoration(
                     color: const Color(0xff121312),

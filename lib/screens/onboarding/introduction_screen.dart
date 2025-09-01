@@ -25,59 +25,55 @@ class IntroductionScreen extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              SizedBox(
-                width: double.infinity,
-                height: 252.h,
-                child: Column(
-                  children: [
-                    Text(
-                      'Find Your Next Favorite Movie Here',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        fontSize: 36.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Colors.white,
-                      ),
+              Column(
+                children: [
+                  Text(
+                    'Find Your Next Favorite Movie Here',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      fontSize: 36.sp,
+                      fontWeight: FontWeight.w500,
+                      color: Colors.white,
                     ),
-                    SizedBox(height: 16.h),
-                    Text(
-                      'Get access to a huge library of movies to suit all tastes. You will surely like it.',
-                      textAlign: TextAlign.center,
-                      style: GoogleFonts.inter(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white.withOpacity(0.6),
-                      ),
+                  ),
+                  SizedBox(height: 16.h),
+                  Text(
+                    'Get access to a huge library of movies to suit all tastes. You will surely like it.',
+                    textAlign: TextAlign.center,
+                    style: GoogleFonts.inter(
+                      fontSize: 20.sp,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.white.withOpacity(0.6),
                     ),
-                    SizedBox(height: 24.h),
-                    SizedBox(
-                      height: 55.h,
-                      width: double.infinity,
-                      child: ElevatedButton(
-                        onPressed: () {
-                          Navigator.pushNamed(
-                            context,
-                            OnboardingScreen.routeName,
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xffF6BD00),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadiusGeometry.circular(16.r),
-                          ),
+                  ),
+                  SizedBox(height: 24.h),
+                  SizedBox(
+                    height: 55.h,
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushNamed(
+                          context,
+                          OnboardingScreen.routeName,
+                        );
+                      },
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Color(0xffF6BD00),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadiusGeometry.circular(16.r),
                         ),
-                        child: Text(
-                          'Explore Now',
-                          style: GoogleFonts.inter(
-                            fontSize: 20.sp,
-                            fontWeight: FontWeight.w600,
-                            color: Color(0xff121312),
-                          ),
+                      ),
+                      child: Text(
+                        'Explore Now',
+                        style: GoogleFonts.inter(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xff121312),
                         ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

@@ -26,23 +26,28 @@ class ForgetPasswordScreen extends StatelessWidget {
         ),
       ),
 
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/forget_password.png',
-              fit: BoxFit.contain,
-            ),
-            SizedBox(height: 24.h),
-            CustomTextFormField(icon: 'assets/icons/email.png', label: 'Email'),
-            SizedBox(height: 24.h),
-            CustomElevatedButton(
-              text: 'Verify Email',
-              fontSize: 20,
-              onPressed: () {},
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Column(
+            children: [
+              Image.asset(
+                'assets/images/forget_password.png',
+                fit: BoxFit.contain,
+              ),
+              SizedBox(height: 24.h),
+              CustomTextFormField(
+                icon: 'assets/icons/email.png',
+                label: 'Email',
+              ),
+              SizedBox(height: 24.h),
+              CustomElevatedButton(
+                text: 'Verify Email',
+                fontSize: 20,
+                onPressed: () {},
+              ),
+            ],
+          ),
         ),
       ),
     );

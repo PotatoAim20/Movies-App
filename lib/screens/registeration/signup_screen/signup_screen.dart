@@ -33,137 +33,144 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
         ),
       ),
-      body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 18.w),
-        child: Column(
-          children: [
-            CarouselSlider(
-              options: CarouselOptions(
-                height: 161.h,
-                enlargeCenterPage: true,
-                enableInfiniteScroll: true,
-                viewportFraction: 0.4,
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 18.w),
+          child: Column(
+            children: [
+              CarouselSlider(
+                options: CarouselOptions(
+                  height: 161.h,
+                  enlargeCenterPage: true,
+                  enableInfiniteScroll: true,
+                  viewportFraction: 0.4,
+                ),
+                items: List.generate(9, (index) {
+                  final avatarPath = 'assets/avatars/avatar${index + 1}.png';
+                  return Builder(
+                    builder: (BuildContext context) {
+                      return Image.asset(avatarPath, fit: BoxFit.cover);
+                    },
+                  );
+                }),
               ),
-              items: List.generate(9, (index) {
-                final avatarPath = 'assets/avatars/avatar${index + 1}.png';
-                return Builder(
-                  builder: (BuildContext context) {
-                    return Image.asset(avatarPath, fit: BoxFit.cover);
-                  },
-                );
-              }),
-            ),
 
-            SizedBox(height: 41.h),
-            CustomTextFormField(icon: 'assets/icons/name.png', label: 'Name'),
-            SizedBox(height: 24.h),
-            CustomTextFormField(icon: 'assets/icons/email.png', label: 'Email'),
-            SizedBox(height: 24.h),
-            CustomTextFormField(
-              icon: 'assets/icons/password.png',
-              label: 'Password',
-            ),
-            SizedBox(height: 24.h),
-            CustomTextFormField(
-              icon: 'assets/icons/password.png',
-              label: 'Password',
-            ),
-            SizedBox(height: 24.h),
-            CustomTextFormField(
-              icon: 'assets/icons/phone.png',
-              label: 'Phone Number',
-            ),
-            SizedBox(height: 24.h),
-            CustomElevatedButton(
-              text: 'Create Account',
-              fontSize: 20,
-              onPressed: () {
-                Navigator.pushNamedAndRemoveUntil(
-                  context,
-                  HomePage.routeName,
-                  (route) => false,
-                );
-              },
-            ),
-            SizedBox(height: 18.h),
-            GestureDetector(
-              onTap: () {
-                Navigator.pop(context);
-              },
-              child: RichText(
-                text: TextSpan(
+              SizedBox(height: 41.h),
+              CustomTextFormField(icon: 'assets/icons/name.png', label: 'Name'),
+              SizedBox(height: 24.h),
+              CustomTextFormField(
+                icon: 'assets/icons/email.png',
+                label: 'Email',
+              ),
+              SizedBox(height: 24.h),
+              CustomTextFormField(
+                icon: 'assets/icons/password.png',
+                label: 'Password',
+                isPassword: true,
+              ),
+              SizedBox(height: 24.h),
+              CustomTextFormField(
+                icon: 'assets/icons/password.png',
+                label: 'Password',
+                isPassword: true,
+              ),
+              SizedBox(height: 24.h),
+              CustomTextFormField(
+                icon: 'assets/icons/phone.png',
+                label: 'Phone Number',
+              ),
+              SizedBox(height: 24.h),
+              CustomElevatedButton(
+                text: 'Create Account',
+                fontSize: 20,
+                onPressed: () {
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    HomePage.routeName,
+                    (route) => false,
+                  );
+                },
+              ),
+              SizedBox(height: 18.h),
+              GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: RichText(
+                  text: TextSpan(
+                    children: [
+                      TextSpan(
+                        text: "Already Have Account ? ",
+                        style: GoogleFonts.roboto(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                      ),
+                      TextSpan(
+                        text: "Login",
+                        style: GoogleFonts.roboto(
+                          fontSize: 14.sp,
+                          fontWeight: FontWeight.w900,
+                          color: Color(0xffF6BD00),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              SizedBox(height: 18.h),
+              Container(
+                height: 38.h,
+                width: 90.w,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.r),
+                  border: Border.all(color: Color(0xffF6BD00), width: 2),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextSpan(
-                      text: "Already Have Account ? ",
-                      style: GoogleFonts.roboto(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
+                    GestureDetector(
+                      onTap: () {
+                        isEnglish = true;
+                        setState(() {});
+                      },
+                      child: Container(
+                        decoration: isEnglish
+                            ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Color(0xffF6BD00),
+                                  width: 4,
+                                ),
+                              )
+                            : null,
+                        child: Image.asset('assets/icons/en.png'),
                       ),
                     ),
-                    TextSpan(
-                      text: "Login",
-                      style: GoogleFonts.roboto(
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w900,
-                        color: Color(0xffF6BD00),
+                    GestureDetector(
+                      onTap: () {
+                        isEnglish = false;
+                        setState(() {});
+                      },
+                      child: Container(
+                        decoration: isEnglish == false
+                            ? BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: Color(0xffF6BD00),
+                                  width: 4,
+                                ),
+                              )
+                            : null,
+                        child: Image.asset('assets/icons/ar.png'),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            SizedBox(height: 18.h),
-            Container(
-              height: 38.h,
-              width: 90.w,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(30.r),
-                border: Border.all(color: Color(0xffF6BD00), width: 2),
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      isEnglish = true;
-                      setState(() {});
-                    },
-                    child: Container(
-                      decoration: isEnglish
-                          ? BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Color(0xffF6BD00),
-                                width: 4,
-                              ),
-                            )
-                          : null,
-                      child: Image.asset('assets/icons/en.png'),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      isEnglish = false;
-                      setState(() {});
-                    },
-                    child: Container(
-                      decoration: isEnglish == false
-                          ? BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                color: Color(0xffF6BD00),
-                                width: 4,
-                              ),
-                            )
-                          : null,
-                      child: Image.asset('assets/icons/ar.png'),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

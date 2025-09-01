@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
             EditProfile.routeName: (context) => EditProfile(),
             MovieDetails.routeName: (context) => MovieDetails(),
           },
-          initialRoute: HomePage.routeName,
+          initialRoute: LoginScreen.routeName,
         );
       },
     );
