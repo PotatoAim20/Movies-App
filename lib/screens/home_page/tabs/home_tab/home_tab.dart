@@ -16,11 +16,7 @@ class HomeTab extends StatefulWidget {
 
 class _HomeTabState extends State<HomeTab> {
   int carouselIndex = 0;
-  List images = [
-    'assets/images/test.png',
-    'assets/images/test2.png',
-    'assets/images/test3.png',
-  ];
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeTabCubit, HomeTabStates>(
@@ -28,6 +24,7 @@ class _HomeTabState extends State<HomeTab> {
         if (state is GetMoviesListLoadingState) {
           return Center(child: CircularProgressIndicator());
         }
+
         return SingleChildScrollView(
           child: Column(
             children: [
@@ -37,73 +34,88 @@ class _HomeTabState extends State<HomeTab> {
                     width: double.infinity,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: AssetImage(images[carouselIndex]),
-                        fit: BoxFit.fill,
-                        opacity: 0.2,
+                        image: NetworkImage(
+                          HomeTabCubit.get(context)
+                              .moviesResponse!
+                              .data!
+                              .movies![carouselIndex]
+                              .backgroundImage,
+                        ),
+                        fit: BoxFit.cover,
                       ),
                     ),
-                    child: Column(
-                      children: [
-                        Center(
-                          child: Image.asset(
-                            'assets/images/available_now.png',
-                            fit: BoxFit.contain,
+                    child: Container(
+                      width: double.infinity,
+                      decoration: BoxDecoration(
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: AssetImage(
+                            'assets/images/movie_details_layer.png',
                           ),
                         ),
-                        SizedBox(height: 21.h),
-                        CarouselSlider(
-                          options: CarouselOptions(
-                            onPageChanged: (index, reason) {
-                              carouselIndex = index;
-                              setState(() {});
-                            },
-                            enlargeFactor: 0.25,
-                            height: 351.h,
-                            enlargeCenterPage: true,
-                            enableInfiniteScroll: true,
-                            viewportFraction: 0.6,
+                      ),
+                      child: Column(
+                        children: [
+                          Center(
+                            child: Image.asset(
+                              'assets/images/available_now.png',
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                          items:
-                              (HomeTabCubit.get(
-                                        context,
-                                      ).moviesResponse?.data?.movies ??
-                                      [])
-                                  .map((movie) {
-                                    return Builder(
-                                      builder: (BuildContext context) {
-                                        return GestureDetector(
-                                          onTap: () {
-                                            Navigator.pushNamed(
-                                              context,
-                                              MovieDetails.routeName,
-                                              // arguments:
-                                              //     movie, // pass the movie if needed
-                                            );
-                                          },
-                                          child: Image.network(
-                                            movie.backgroundImage,
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (context, error, stackTrace) {
-                                                  return Image.asset(
-                                                    'assets/images/test.png',
-                                                  ); // fallback
-                                                },
-                                          ),
-                                        );
-                                      },
-                                    );
-                                  })
-                                  .toList(),
-                        ),
-                        SizedBox(height: 21.h),
-                        Center(
-                          child: Image.asset(
-                            'assets/images/watch_now.png',
-                            fit: BoxFit.contain,
+                          SizedBox(height: 21.h),
+                          CarouselSlider(
+                            options: CarouselOptions(
+                              onPageChanged: (index, reason) {
+                                carouselIndex = index;
+                                setState(() {});
+                              },
+                              enlargeFactor: 0.25,
+                              height: 351.h,
+                              enlargeCenterPage: true,
+                              enableInfiniteScroll: true,
+                              viewportFraction: 0.6,
+                            ),
+                            items:
+                                (HomeTabCubit.get(
+                                          context,
+                                        ).moviesResponse?.data?.movies ??
+                                        [])
+                                    .map((movie) {
+                                      return Builder(
+                                        builder: (BuildContext context) {
+                                          return GestureDetector(
+                                            onTap: () {
+                                              Navigator.pushNamed(
+                                                context,
+                                                MovieDetails.routeName,
+                                                arguments: movie.id,
+                                              );
+                                            },
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadiusGeometry.circular(
+                                                    20.r,
+                                                  ),
+                                              child: Image.network(
+                                                movie.backgroundImage,
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                          );
+                                        },
+                                      );
+                                    })
+                                    .toList(),
                           ),
-                        ),
-                      ],
+                          SizedBox(height: 21.h),
+                          Center(
+                            child: Image.asset(
+                              'assets/images/watch_now.png',
+                              fit: BoxFit.contain,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -154,7 +166,11 @@ class _HomeTabState extends State<HomeTab> {
                     separatorBuilder: (context, index) =>
                         SizedBox(height: 16.h),
                     scrollDirection: Axis.horizontal,
-                    itemCount: 9,
+                    itemCount:
+                        HomeTabCubit.get(context).moviesResponse?.data?.movies
+                            ?.where((movie) => movie.genres.contains("Action"))
+                            .length ??
+                        0,
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
@@ -162,9 +178,17 @@ class _HomeTabState extends State<HomeTab> {
                         },
                         child: Padding(
                           padding: EdgeInsets.only(right: 16.w),
-                          child: Image.asset(
-                            'assets/images/test2.png',
-                            fit: BoxFit.cover,
+                          child: Image.network(
+                            (HomeTabCubit.get(context)
+                                    .moviesResponse!
+                                    .data!
+                                    .movies!
+                                    .where(
+                                      (movie) =>
+                                          movie.genres.contains("Action"),
+                                    )
+                                    .toList())[index]
+                                .backgroundImage,
                           ),
                         ),
                       );

@@ -29,8 +29,8 @@ class MoviesData {
       pageNumber: json['page_number'],
       movies: json['movies'] != null
           ? (json['movies'] as List)
-              .map((v) => MoviesListModel.fromJson(v))
-              .toList()
+                .map((v) => MoviesListModel.fromJson(v))
+                .toList()
           : [],
     );
   }
@@ -63,7 +63,7 @@ class MoviesListModel {
       rating: (json['rating'] as num).toDouble(),
       runtime: json['runtime'],
       genres: List<String>.from(json['genres']),
-      backgroundImage: json['background_image'],
+      backgroundImage: json['large_cover_image'],
     );
   }
 
@@ -75,7 +75,7 @@ class MoviesListModel {
       'rating': rating,
       'runtime': runtime,
       'genres': genres,
-      'background_image': backgroundImage,
+      'large_cover_image': backgroundImage,
     };
   }
 }
