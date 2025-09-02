@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies_app/screens/home_page/tabs/explore_tab/explore_tab.dart';
+import 'package:movies_app/screens/home_page/tabs/home_tab/cubit/home_tab_cubit.dart';
 import 'package:movies_app/screens/home_page/tabs/home_tab/home_tab.dart';
+import 'package:movies_app/screens/home_page/tabs/home_tab/repository/home_tab_repo_implementation.dart';
 import 'package:movies_app/screens/home_page/tabs/profile_tab/profile_tab.dart';
 import 'package:movies_app/screens/home_page/tabs/search_tab/search_tab.dart';
 
@@ -16,7 +19,16 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int selectedIndex = 0;
 
-  final List tabs = [HomeTab(), SearchTab(), ExploreTab(), ProfileTab()];
+  final List tabs = [
+    BlocProvider<HomeTabCubit>(
+      create: (context) =>
+          HomeTabCubit(HomeTabRepoImplementation())..getMoviesList(),
+      child: HomeTab(),
+    ),
+    SearchTab(),
+    ExploreTab(),
+    ProfileTab(),
+  ];
 
   @override
   Widget build(BuildContext context) {
