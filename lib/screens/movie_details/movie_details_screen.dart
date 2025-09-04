@@ -89,7 +89,9 @@ class MovieDetails extends StatelessWidget {
                         child: Column(
                           children: [
                             Text(
-                              'Doctor Strange in the Multiverse of Madness',
+                              MovieDetailsCubit.get(
+                                context,
+                              ).movieDetailsResponse!.movie.title,
                               textAlign: TextAlign.center,
                               style: GoogleFonts.roboto(
                                 fontSize: 24.sp,
@@ -99,7 +101,9 @@ class MovieDetails extends StatelessWidget {
                             ),
                             SizedBox(height: 15.h),
                             Text(
-                              '2022',
+                              MovieDetailsCubit.get(
+                                context,
+                              ).movieDetailsResponse!.movie.year.toString(),
                               style: GoogleFonts.roboto(
                                 fontSize: 20.sp,
                                 fontWeight: FontWeight.w700,
@@ -145,7 +149,11 @@ class MovieDetails extends StatelessWidget {
                                   ),
                                   SizedBox(width: 14.w),
                                   Text(
-                                    '15',
+                                    MovieDetailsCubit.get(context)
+                                        .movieDetailsResponse!
+                                        .movie
+                                        .likeCount
+                                        .toString(),
                                     style: GoogleFonts.roboto(
                                       fontSize: 24.sp,
                                       fontWeight: FontWeight.w700,
@@ -172,7 +180,11 @@ class MovieDetails extends StatelessWidget {
                                   ),
                                   SizedBox(width: 14.w),
                                   Text(
-                                    '15',
+                                    MovieDetailsCubit.get(context)
+                                        .movieDetailsResponse!
+                                        .movie
+                                        .runtime
+                                        .toString(),
                                     style: GoogleFonts.roboto(
                                       fontSize: 24.sp,
                                       fontWeight: FontWeight.w700,
@@ -199,7 +211,11 @@ class MovieDetails extends StatelessWidget {
                                   ),
                                   SizedBox(width: 14.w),
                                   Text(
-                                    '15',
+                                    MovieDetailsCubit.get(context)
+                                        .movieDetailsResponse!
+                                        .movie
+                                        .rating
+                                        .toString(),
                                     style: GoogleFonts.roboto(
                                       fontSize: 24.sp,
                                       fontWeight: FontWeight.w700,
@@ -213,7 +229,7 @@ class MovieDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 16.h),
                         Text(
-                          'Screen Shots',
+                          'ScreenShots',
                           style: GoogleFonts.roboto(
                             fontSize: 24.sp,
                             fontWeight: FontWeight.w700,
@@ -228,8 +244,11 @@ class MovieDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16.r),
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                'assets/images/movies_details_screenshot1.png',
+                              image: NetworkImage(
+                                MovieDetailsCubit.get(
+                                      context,
+                                    ).movieDetailsResponse?.movie.screenShot1 ??
+                                    '',
                               ),
                             ),
                           ),
@@ -242,8 +261,11 @@ class MovieDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16.r),
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                'assets/images/movies_details_screenshot2.png',
+                              image: NetworkImage(
+                                MovieDetailsCubit.get(
+                                      context,
+                                    ).movieDetailsResponse?.movie.screenShot2 ??
+                                    '',
                               ),
                             ),
                           ),
@@ -256,8 +278,11 @@ class MovieDetails extends StatelessWidget {
                             borderRadius: BorderRadius.circular(16.r),
                             image: DecorationImage(
                               fit: BoxFit.cover,
-                              image: AssetImage(
-                                'assets/images/movies_details_screenshot3.png',
+                              image: NetworkImage(
+                                MovieDetailsCubit.get(
+                                      context,
+                                    ).movieDetailsResponse?.movie.screenShot3 ??
+                                    '',
                               ),
                             ),
                           ),
@@ -276,7 +301,13 @@ class MovieDetails extends StatelessWidget {
                           shrinkWrap: true,
                           physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.all(0),
-                          itemCount: 4,
+                          itemCount:
+                              MovieDetailsCubit.get(context)
+                                  .movieSuggestionsResponse
+                                  ?.data
+                                  ?.movies
+                                  ?.length ??
+                              0,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 2,
@@ -285,11 +316,31 @@ class MovieDetails extends StatelessWidget {
                                 childAspectRatio: 0.7,
                               ),
                           itemBuilder: (context, index) {
-                            return ClipRRect(
-                              borderRadius: BorderRadiusGeometry.circular(16.r),
-                              child: Image.asset(
-                                'assets/images/test${index + 2}.png',
-                                fit: BoxFit.cover,
+                            return GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  MovieDetails.routeName,
+                                  arguments: MovieDetailsCubit.get(context)
+                                      .movieSuggestionsResponse
+                                      ?.data
+                                      ?.movies?[index]
+                                      .id,
+                                );
+                              },
+                              child: ClipRRect(
+                                borderRadius: BorderRadiusGeometry.circular(
+                                  16.r,
+                                ),
+                                child: Image.network(
+                                  MovieDetailsCubit.get(context)
+                                          .movieSuggestionsResponse
+                                          ?.data
+                                          ?.movies?[index]
+                                          .backgroundImage ??
+                                      '',
+                                  fit: BoxFit.cover,
+                                ),
                               ),
                             );
                           },
@@ -305,7 +356,9 @@ class MovieDetails extends StatelessWidget {
                         ),
                         SizedBox(height: 8.h),
                         Text(
-                          'Following the events of Spider-Man No Way Home, Doctor Strange unwittingly casts a forbidden spell that accidentally opens up the multiverse. With help from Wong and Scarlet Witch, Strange confronts various versions of himself as well as teaming up with the young America Chavez while traveling through various realities and working to restore reality as he knows it. Along the way, Strange and his allies realize they must take on a powerful new adversary who seeks to take over the multiverse.—Blazer346',
+                          MovieDetailsCubit.get(
+                            context,
+                          ).movieDetailsResponse!.movie.description,
                           style: GoogleFonts.roboto(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,
@@ -351,9 +404,18 @@ class MovieDetails extends StatelessWidget {
                                           10.r,
                                         ),
                                       ),
-                                      child: Image.asset(
-                                        'assets/images/cast_test.png',
-                                        fit: BoxFit.cover,
+                                      child: ClipRRect(
+                                        borderRadius:
+                                            BorderRadiusGeometry.circular(20.r),
+                                        child: Image.network(
+                                          fit: BoxFit.cover,
+                                          MovieDetailsCubit.get(context)
+                                                  .movieDetailsResponse!
+                                                  .movie
+                                                  .cast[index]
+                                                  .imageUrl ??
+                                              'https://www.movienewz.com/img/films/poster-holder.jpg',
+                                        ),
                                       ),
                                     ),
                                     SizedBox(width: 10.w),
@@ -362,7 +424,12 @@ class MovieDetails extends StatelessWidget {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          'Name : Hayley Atwell',
+                                          MovieDetailsCubit.get(context)
+                                                  .movieDetailsResponse
+                                                  ?.movie
+                                                  .cast[index]
+                                                  .name ??
+                                              'N/A',
                                           style: GoogleFonts.roboto(
                                             fontSize: 20.sp,
                                             fontWeight: FontWeight.w400,
@@ -370,7 +437,12 @@ class MovieDetails extends StatelessWidget {
                                           ),
                                         ),
                                         Text(
-                                          'Character : Captain Carter',
+                                          MovieDetailsCubit.get(context)
+                                                  .movieDetailsResponse
+                                                  ?.movie
+                                                  .cast[index]
+                                                  .characterName ??
+                                              'N/A',
                                           style: GoogleFonts.roboto(
                                             fontSize: 20.sp,
                                             fontWeight: FontWeight.w400,
@@ -402,13 +474,15 @@ class MovieDetails extends StatelessWidget {
                           physics: NeverScrollableScrollPhysics(),
                           padding: EdgeInsets.all(0),
 
-                          itemCount: 5,
+                          itemCount: MovieDetailsCubit.get(
+                            context,
+                          ).movieDetailsResponse?.movie.genres.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                 crossAxisCount: 3,
                                 crossAxisSpacing: 16.w,
                                 mainAxisSpacing: 11.h,
-                                childAspectRatio: 0.7,
+                                childAspectRatio: 100 / 40,
                               ),
                           itemBuilder: (context, index) {
                             return Container(
@@ -418,7 +492,11 @@ class MovieDetails extends StatelessWidget {
                               ),
                               child: Center(
                                 child: Text(
-                                  'Adventure',
+                                  MovieDetailsCubit.get(context)
+                                          .movieDetailsResponse
+                                          ?.movie
+                                          .genres[index] ??
+                                      'N/A',
                                   style: GoogleFonts.roboto(
                                     fontSize: 16.sp,
                                     fontWeight: FontWeight.w400,

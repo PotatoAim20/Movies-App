@@ -6,12 +6,16 @@ class CustomTextFormField extends StatefulWidget {
   final String icon;
   final String label;
   final bool isPassword;
+  final TextEditingController? textEditingController;
+  final void Function(String)? onFieldSubmitted;
 
   const CustomTextFormField({
     super.key,
     required this.icon,
     required this.label,
     this.isPassword = false,
+    this.textEditingController,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -29,6 +33,8 @@ class _CustomTextFormFieldState extends State<CustomTextFormField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      onFieldSubmitted: widget.onFieldSubmitted,
+      controller: widget.textEditingController,
       obscureText: isPasswordHidden,
       obscuringCharacter: '*',
       style: GoogleFonts.roboto(

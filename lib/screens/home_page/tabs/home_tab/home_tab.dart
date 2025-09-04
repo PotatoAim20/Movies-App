@@ -174,21 +174,30 @@ class _HomeTabState extends State<HomeTab> {
                     itemBuilder: (context, index) {
                       return GestureDetector(
                         onTap: () {
-                          Navigator.pushNamed(context, MovieDetails.routeName);
+                          Navigator.pushNamed(
+                            context,
+                            MovieDetails.routeName,
+                            arguments: HomeTabCubit.get(
+                              context,
+                            ).moviesResponse?.data?.movies?[index].id,
+                          );
                         },
                         child: Padding(
                           padding: EdgeInsets.only(right: 16.w),
-                          child: Image.network(
-                            (HomeTabCubit.get(context)
-                                    .moviesResponse!
-                                    .data!
-                                    .movies!
-                                    .where(
-                                      (movie) =>
-                                          movie.genres.contains("Action"),
-                                    )
-                                    .toList())[index]
-                                .backgroundImage,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(16.r),
+                            child: Image.network(
+                              (HomeTabCubit.get(context)
+                                      .moviesResponse!
+                                      .data!
+                                      .movies!
+                                      .where(
+                                        (movie) =>
+                                            movie.genres.contains("Action"),
+                                      )
+                                      .toList())[index]
+                                  .backgroundImage,
+                            ),
                           ),
                         ),
                       );
