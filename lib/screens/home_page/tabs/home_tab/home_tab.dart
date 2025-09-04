@@ -25,6 +25,12 @@ class _HomeTabState extends State<HomeTab> {
           return Center(child: CircularProgressIndicator());
         }
 
+        final movies =
+            HomeTabCubit.get(context).moviesResponse?.data?.movies ?? [];
+
+        // collecting unique genres from all movies
+        final genres = movies.expand((movie) => movie.genres).toSet().toList();
+
         return SingleChildScrollView(
           child: Column(
             children: [
@@ -75,37 +81,29 @@ class _HomeTabState extends State<HomeTab> {
                               enableInfiniteScroll: true,
                               viewportFraction: 0.6,
                             ),
-                            items:
-                                (HomeTabCubit.get(
-                                          context,
-                                        ).moviesResponse?.data?.movies ??
-                                        [])
-                                    .map((movie) {
-                                      return Builder(
-                                        builder: (BuildContext context) {
-                                          return GestureDetector(
-                                            onTap: () {
-                                              Navigator.pushNamed(
-                                                context,
-                                                MovieDetails.routeName,
-                                                arguments: movie.id,
-                                              );
-                                            },
-                                            child: ClipRRect(
-                                              borderRadius:
-                                                  BorderRadiusGeometry.circular(
-                                                    20.r,
-                                                  ),
-                                              child: Image.network(
-                                                movie.backgroundImage,
-                                                fit: BoxFit.cover,
-                                              ),
-                                            ),
-                                          );
-                                        },
+                            items: movies.map((movie) {
+                              return Builder(
+                                builder: (BuildContext context) {
+                                  return GestureDetector(
+                                    onTap: () {
+                                      Navigator.pushNamed(
+                                        context,
+                                        MovieDetails.routeName,
+                                        arguments: movie.id,
                                       );
-                                    })
-                                    .toList(),
+                                    },
+                                    child: ClipRRect(
+                                      borderRadius:
+                                          BorderRadiusGeometry.circular(20.r),
+                                      child: Image.network(
+                                        movie.backgroundImage,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  );
+                                },
+                              );
+                            }).toList(),
                           ),
                           SizedBox(height: 21.h),
                           Center(
@@ -122,90 +120,84 @@ class _HomeTabState extends State<HomeTab> {
               ),
 
               SizedBox(height: 30.h),
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    Text(
-                      'Action',
-                      style: GoogleFonts.roboto(
-                        fontSize: 20.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
-                      ),
-                    ),
-                    Spacer(),
-                    Text(
-                      'See More',
-                      style: GoogleFonts.roboto(
-                        fontSize: 16.sp,
-                        fontWeight: FontWeight.w400,
-                        color: Color(0xffF6BD00),
-                      ),
-                    ),
-                    SizedBox(width: 5.w),
-                    GestureDetector(
-                      onTap: () {},
-                      child: Icon(
-                        Icons.arrow_forward,
-                        color: Color(0xffF6BD00),
-                        size: 15,
-                      ),
-                    ),
-                    SizedBox(height: 16.h),
-                  ],
-                ),
-              ),
-              SizedBox(height: 12.h),
-              Padding(
-                padding: EdgeInsets.only(left: 16.w),
-                child: SizedBox(
-                  height: 220.h,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) =>
-                        SizedBox(height: 16.h),
-                    scrollDirection: Axis.horizontal,
-                    itemCount:
-                        HomeTabCubit.get(context).moviesResponse?.data?.movies
-                            ?.where((movie) => movie.genres.contains("Action"))
-                            .length ??
-                        0,
-                    itemBuilder: (context, index) {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.pushNamed(
-                            context,
-                            MovieDetails.routeName,
-                            arguments: HomeTabCubit.get(
-                              context,
-                            ).moviesResponse?.data?.movies?[index].id,
-                          );
-                        },
-                        child: Padding(
-                          padding: EdgeInsets.only(right: 16.w),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(16.r),
-                            child: Image.network(
-                              (HomeTabCubit.get(context)
-                                      .moviesResponse!
-                                      .data!
-                                      .movies!
-                                      .where(
-                                        (movie) =>
-                                            movie.genres.contains("Action"),
-                                      )
-                                      .toList())[index]
-                                  .backgroundImage,
-                            ),
-                          ),
+
+              for (final genre in genres) ...[
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Text(
+                        genre,
+                        style: GoogleFonts.roboto(
+                          fontSize: 20.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
                         ),
-                      );
-                    },
+                      ),
+                      Spacer(),
+                      Text(
+                        'See More',
+                        style: GoogleFonts.roboto(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w400,
+                          color: Color(0xffF6BD00),
+                        ),
+                      ),
+                      SizedBox(width: 5.w),
+                      GestureDetector(
+                        onTap: () {},
+                        child: Icon(
+                          Icons.arrow_forward,
+                          color: Color(0xffF6BD00),
+                          size: 15,
+                        ),
+                      ),
+                      SizedBox(height: 16.h),
+                    ],
                   ),
                 ),
-              ),
-              SizedBox(height: 16.h),
+                SizedBox(height: 12.h),
+                Padding(
+                  padding: EdgeInsets.only(left: 16.w),
+                  child: SizedBox(
+                    height: 220.h,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          SizedBox(width: 16.w),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: movies
+                          .where((movie) => movie.genres.contains(genre))
+                          .length,
+                      itemBuilder: (context, index) {
+                        final genreMovies = movies
+                            .where((movie) => movie.genres.contains(genre))
+                            .toList();
+
+                        final movie = genreMovies[index];
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                              context,
+                              MovieDetails.routeName,
+                              arguments: movie.id,
+                            );
+                          },
+                          child: Padding(
+                            padding: EdgeInsets.only(right: 16.w),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(16.r),
+                              child: Image.network(movie.backgroundImage),
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+                SizedBox(height: 16.h),
+              ],
             ],
           ),
         );

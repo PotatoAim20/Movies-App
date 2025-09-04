@@ -122,15 +122,11 @@ class ProfileTab extends StatelessWidget {
                                     color: Colors.white,
                                   ),
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 11.w,
-                                  ),
-                                  child: Icon(
-                                    Icons.exit_to_app_rounded,
-                                    color: Colors.white,
-                                    size: 20,
-                                  ),
+                                SizedBox(width: 11.w),
+                                Icon(
+                                  Icons.exit_to_app_rounded,
+                                  color: Colors.white,
+                                  size: 20,
                                 ),
                               ],
                             ),

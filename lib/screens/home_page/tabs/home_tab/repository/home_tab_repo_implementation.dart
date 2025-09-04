@@ -9,7 +9,9 @@ class HomeTabRepoImplementation implements HomeTabRepo {
   @override
   Future<MoviesResponse> getMoviesList() async {
     try {
-      var response = await apiManager.getApi(Endpoints.listMovies, {});
+      var response = await apiManager.getApi(Endpoints.listMovies, {
+        'limit': 50,
+      });
       MoviesResponse result = MoviesResponse.fromJson(response.data);
       return result;
     } catch (e) {

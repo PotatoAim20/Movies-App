@@ -419,44 +419,51 @@ class MovieDetails extends StatelessWidget {
                                       ),
                                     ),
                                     SizedBox(width: 10.w),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          MovieDetailsCubit.get(context)
-                                                  .movieDetailsResponse
-                                                  ?.movie
-                                                  .cast[index]
-                                                  .name ??
-                                              'N/A',
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
+                                    Expanded(
+                                      child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            MovieDetailsCubit.get(context)
+                                                    .movieDetailsResponse
+                                                    ?.movie
+                                                    .cast[index]
+                                                    .name ??
+                                                'N/A',
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                        ),
-                                        Text(
-                                          MovieDetailsCubit.get(context)
-                                                  .movieDetailsResponse
-                                                  ?.movie
-                                                  .cast[index]
-                                                  .characterName ??
-                                              'N/A',
-                                          style: GoogleFonts.roboto(
-                                            fontSize: 20.sp,
-                                            fontWeight: FontWeight.w400,
-                                            color: Colors.white,
+                                          Text(
+                                            softWrap: true,
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            MovieDetailsCubit.get(context)
+                                                    .movieDetailsResponse
+                                                    ?.movie
+                                                    .cast[index]
+                                                    .characterName ??
+                                                'N/A',
+                                            style: GoogleFonts.roboto(
+                                              fontSize: 20.sp,
+                                              fontWeight: FontWeight.w400,
+                                              color: Colors.white,
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 ),
                               ),
                             );
                           },
-                          itemCount: 4,
+                          itemCount: MovieDetailsCubit.get(
+                            context,
+                          ).movieDetailsResponse!.movie.cast.length,
                         ),
 
                         SizedBox(height: 16.h),
